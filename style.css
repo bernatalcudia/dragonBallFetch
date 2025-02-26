@@ -3,3 +3,10 @@
     justify-content: center;
     align-items: center;
 }
+
+#charactersDiv {
+    width: 10rem;
+    background-color: red;
+    justify-content: center;
+    align-items: center;
+}
