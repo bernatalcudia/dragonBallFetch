@@ -1,7 +1,7 @@
 #section {
 
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: column wrap;
     justify-content: center;
     align-items: center;
 
@@ -19,6 +19,15 @@ img:hover {
     transform: scale(1.3);
 }
 
+input {
+    border-color: rgb(222, 21, 195);
+    border-radius: 1rem;
+}
+
+button {
+    border-color: rgb(24, 222, 21);
+    border-radius: 1rem;
+}
 
 #charactersDiv {
     width: 30%;

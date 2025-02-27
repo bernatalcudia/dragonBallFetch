@@ -1,4 +1,6 @@
 const section = document.getElementById("section");
+const searchInput = document.getElementById("searchInput");
+const buttonSearch = document.getElementById("buttonSearch");
 
 fetch("https://dragonball-api.com/api/characters?limit=1000")
     .then((result) => result.json())
