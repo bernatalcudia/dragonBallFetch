@@ -15,7 +15,6 @@ fetch("https://dragonball-api.com/api/characters?limit=1000")
             cardCharacter(name, ki, maxKi, race, gender, description, image);
         });
     })
-
     .catch((error) => console.error(error))
 
 function cardCharacter(name, ki, maxKi, race, gender, description, image) {
