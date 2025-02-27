@@ -24,10 +24,7 @@ input {
     border-radius: 1rem;
 }
 
-button {
-    border-color: rgb(24, 222, 21);
-    border-radius: 1rem;
-}
+
 
 #charactersDiv {
     width: 30%;
