@@ -1,83 +1,47 @@
 const section = document.getElementById("section");
 
-
-let resultCharacters = [];
-
-let arrayId = [];
-let arrayName = [];
-let arrayKi = [];
-let arrayMaxKi = [];
-let arrayRace = [];
-let arrayGender = [];
-let arrayDescription = [];
-let arrayImage = [];
-let arrayAffiliation = [];
-
 fetch("https://dragonball-api.com/api/characters?limit=1000")
     .then((result) => result.json())
     .then((data) => {
         data.items.forEach(character => {
-            resultCharacters.push(character)
+            const { name } = character;
+            const { ki } = character;
+            const { maxKi } = character;
+            const { race } = character;
+            const { gender } = character;
+            const { description } = character;
+            const { image } = character;
+
+            cardCharacter(name, ki, maxKi, race, gender, description, image);
         });
     })
+
     .catch((error) => console.error(error))
 
-function arraysInformationCharacters(characters, idArray, nameArray, kiArray, maxKiArray, raceArray, genderArray, descriptionArray, imageArray, affiliationArray) {
+function cardCharacter(name, ki, maxKi, race, gender, description, image) {
 
-
-    characters.forEach(character => {
-        idArray.push(character.id)
-        console.log(character.id)
-    })
-
-    characters.forEach(character => {
-        nameArray.push(character.id)
-    })
-
-    characters.forEach(character => {
-        kiArray.push(character.id)
-    })
-
-    characters.forEach(character => {
-        maxKiArray.push(character.id)
-    })
-
-    characters.forEach(character => {
-        raceArray.push(character.id)
-    })
-
-    characters.forEach(character => {
-        genderArray.push(character.id)
-    })
-
-    characters.forEach(character => {
-        descriptionArray.push(character.id)
-    })
-
-    characters.forEach(character => {
-        imageArray.push(character.id)
-    })
-
-    characters.forEach(character => {
-        affiliationArray.push(character.id)
-    })
-}
-arraysInformationCharacters(resultCharacters, arrayId, arrayName, arrayKi, arrayMaxKi, arrayRace, arrayGender, arrayDescription, arrayImage, arrayAffiliation)
-
-
-function addDiv() {
-
+    console.log(name)
+    //Create elements
     const charactersDiv = document.createElement("div");
+    const nameH1 = document.createElement("h1");
+    const kiP = document.createElement("p");
+    const maxKiP = document.createElement("p");
+    const raceH2 = document.createElement("h2");
+    const genderP = document.createElement("p");
+    const descriptionP = document.createElement("p");
+    const characterImage = document.createElement("img");
+    //Set Attributes
+    charactersDiv.setAttribute("id", "charactersDiv");
+    nameH1.innerText = name;
+    kiP.innerText = ki;
+    maxKiP.innerText = maxKi;
+    raceH2.innerText = race;
+    genderP.innerText = gender;
+    descriptionP.innerText = description;
+    characterImage.setAttribute("src", image);
 
-    charactersDiv.setAttribute("id", "charactersDiv")
-    charactersDiv.innerText = "hola"
-    arrayId.forEach(id => {
-        charactersDiv.innerHTML = `<p>${id}</p>
-                                     </br> `
-    })
-
-
+    charactersDiv.append(nameH1, kiP, maxKiP, raceH2, genderP, descriptionP, characterImage);
 
     section.appendChild(charactersDiv);
 }
-addDiv();
+

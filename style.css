@@ -1,12 +1,32 @@
 #section {
+
     display: flex;
+    flex-flow: row wrap;
     justify-content: center;
     align-items: center;
+
+    gap: 1rem;
 }
 
+img {
+    height: 200px;
+    justify-content: center;
+    align-items: center;
+
+}
+
+img:hover {
+    transform: scale(1.3);
+}
+
+
 #charactersDiv {
+    width: 30%;
+    background-color: whitesmoke;
+    border-radius: 1rem;
+    display: flex;
+    flex-flow: column wrap;
     width: 10rem;
-    background-color: red;
     justify-content: center;
     align-items: center;
 }
