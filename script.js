@@ -1,27 +1,10 @@
 const section = document.getElementById("section");
 const searchInput = document.getElementById("searchInput");
-const buttonSearch = document.getElementById("buttonSearch");
+let link = "https://dragonball-api.com/api/characters?limit=1000";
+
 
 
 let query = searchInput.value;
-
-fetch("https://dragonball-api.com/api/characters?limit=1000")
-
-    .then((result) => result.json())
-    .then((data) => {
-        data.items.forEach(character => {
-            const { name } = character;
-            const { ki } = character;
-            const { maxKi } = character;
-            const { race } = character;
-            const { gender } = character;
-            const { description } = character;
-            const { image } = character;
-
-            cardCharacter(name, ki, maxKi, race, gender, description, image);
-        });
-    })
-    .catch((error) => console.error(error))
 
 function cardCharacter(name, ki, maxKi, race, gender, description, image) {
 
@@ -49,32 +32,71 @@ function cardCharacter(name, ki, maxKi, race, gender, description, image) {
     section.appendChild(charactersDiv);
 }
 
+function fetchOrigin() {
+    fetch("https://dragonball-api.com/api/characters?limit=1000")
+
+        .then((result) => result.json())
+        .then((data) => {
+            data.items.forEach(character => {
+                const { name } = character;
+                const { ki } = character;
+                const { maxKi } = character;
+                const { race } = character;
+                const { gender } = character;
+                const { description } = character;
+                const { image } = character;
+
+                cardCharacter(name, ki, maxKi, race, gender, description, image);
+            });
+        })
+        .catch((error) => console.error(error))
+
+}
+fetchOrigin();
+
 async function queryName(event) {
-    let link = "https://dragonball-api.com/api/characters?limit=1000";
+
+    section.innerHTML = "";
 
     let query = event.target.value;
-    let querySearch = "&name=" + query;
-    link += querySearch;
+    console.info(query.length);
+    if (query.length === 0) {
+        try {
+            // const result = await fetch(link)
+            // console.log(link);
+            // let data = await result.json();
+            // console.log(data);
 
-    try {
-        const result = await fetch(link);
-        let data = await result.json();
-        console.log(data);
 
-        data.forEach(character => {
-            const { name } = character;
-            const { ki } = character;
-            const { maxKi } = character;
-            const { race } = character;
-            const { gender } = character;
-            const { description } = character;
-            const { image } = character;
+            fetchOrigin();
 
-            cardCharacter(name, ki, maxKi, race, gender, description, image);
-        });
+        } catch (error) {
+            throw new Error(error);
+        }
 
-    } catch (error) {
-        throw new Error(error);
+    } else {
+        let querySearch = "";
+        querySearch = "&name=" + query;
+        console.log("link", link + querySearch);
+
+        try {
+            const result = await fetch(link + querySearch);
+            let data = await result.json();
+
+            data.forEach(character => {
+                const { name } = character;
+                const { ki } = character;
+                const { maxKi } = character;
+                const { race } = character;
+                const { gender } = character;
+                const { description } = character;
+                const { image } = character;
+
+                cardCharacter(name, ki, maxKi, race, gender, description, image);
+            });
+        } catch (error) {
+            throw new Error(error);
+        }
     }
 }
-searchInput.addEventListener("input", queryName)
+searchInput.addEventListener("input", queryName);
