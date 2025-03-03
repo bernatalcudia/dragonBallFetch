@@ -115,7 +115,53 @@ async function queryName(event) {
         }
     }
 }
-searchInput.addEventListener("input", queryName);
+
+async function queryRace(event) {
+
+    section.innerHTML = "";
+
+    let query = event.target.value;
+    console.info(query.length);
+    if (query.length === 0) {
+        try {
+            // const result = await fetch(link)
+            // console.log(link);
+            // let data = await result.json();
+            // console.log(data);
+
+
+            fetchOrigin();
+
+        } catch (error) {
+            throw new Error(error);
+        }
+
+    } else {
+        let querySearch = "";
+        querySearch = "&race=" + query;
+        console.log("link", link + querySearch);
+
+        try {
+            const result = await fetch(link + querySearch);
+            let data = await result.json();
+
+            data.forEach(character => {
+                const { name } = character;
+                const { ki } = character;
+                const { maxKi } = character;
+                const { race } = character;
+                const { gender } = character;
+                const { description } = character;
+                const { image } = character;
+
+                cardCharacter(name, ki, maxKi, race, gender, description, image);
+            });
+        } catch (error) {
+            throw new Error(error);
+        }
+    }
+}
+searchInput.addEventListener("input", queryRace);
 
 
 queryGeneral(); 
