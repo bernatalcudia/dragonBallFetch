@@ -9,6 +9,19 @@ let link = "https://dragonball-api.com/api/characters?limit=1000";
 
 let query = searchInput.value;
 
+let radioButtonNameCheck = document.querySelector('input[name="name"]:checked');
+let radioButtonRaceCheck = document.querySelector('input[name="race"]:checked');
+let radioButtonGenderCheck = document.querySelector('input[name="gender"]:checked');
+
+function queryGeneral() {
+    if (radioButtonNameCheck) {
+        searchInput.placeholder = "Search name";
+        queryName();
+    } if (radioButtonRaceCheck) {
+        searchInput.placeholder = "Search race";
+    }
+}
+
 function cardCharacter(name, ki, maxKi, race, gender, description, image) {
 
     //Create elements
@@ -103,3 +116,6 @@ async function queryName(event) {
     }
 }
 searchInput.addEventListener("input", queryName);
+
+
+queryGeneral(); 
