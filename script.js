@@ -161,7 +161,7 @@ async function queryRace(event) {
         }
     }
 }
-searchInput.addEventListener("input", queryRace);
+searchInput.addEventListener("input", queryName);
 
 
 queryGeneral(); 
