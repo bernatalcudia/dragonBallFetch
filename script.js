@@ -1,5 +1,8 @@
 const section = document.getElementById("section");
 const searchInput = document.getElementById("searchInput");
+const radioButtonName = document.getElementById("radioButtonName");
+const radioButtonRace = document.getElementById("radioButtonRace")
+const radioButtonGender = document.getElementById("radioButtonGender");
 let link = "https://dragonball-api.com/api/characters?limit=1000";
 
 
