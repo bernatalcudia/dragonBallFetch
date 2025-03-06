@@ -4,29 +4,50 @@ const radioButtonName = document.getElementById("radioButtonName");
 const radioButtonRace = document.getElementById("radioButtonRace")
 const radioButtonGender = document.getElementById("radioButtonGender");
 let link = "https://dragonball-api.com/api/characters?limit=1000";
+let selectedFilter = "name";
 
 
 
-let query = searchInput.value;
+
+function updateFilter(event) {
+    selectedFilter = event.target.value;
+    switch (selectedFilter) {
+        case "name":
+            searchInput.setAttribute("placeholder", "Search a name");
+            break;
+        case "race":
+            searchInput.setAttribute("placeholder", "Search a race");
+
+            break;
+        case "gender":
+            searchInput.setAttribute("placeholder", "Search a gender");
+
+            break;
+        default:
+            searchInput.setAttribute("placeholder", "Search a name");
+            break;
+    }
+}
+
 
 function queryGeneral(event) {
-    let radioButtonValue = event.target.value;
-    switch (radioButtonValue) {
-        case name:
+    let searchValue = event.target.value;
+    console.log(selectedFilter)
+    switch (selectedFilter) {
+        case "name":
 
-            queryName();
+            queryName(searchValue);
             break;
-        case race:
+        case "race":
 
-            queryRace();
-        case gender:
+            queryRace(searchValue);
+        case "gender":
 
-            queryGender();
+            queryGender(searchValue);
         default:
 
             break;
     }
-    console.log(event.target.value)
 
 }
 
@@ -48,7 +69,7 @@ function cardCharacter(name, ki, maxKi, race, gender, description, image) {
     maxKiP.innerText = maxKi;
     raceH2.innerText = race;
     genderP.innerText = gender;
-    descriptionP.innerText = description;
+    // descriptionP.innerText = description;
     characterImage.setAttribute("src", image);
     //Add elements to div
     charactersDiv.append(nameH1, kiP, maxKiP, raceH2, genderP, descriptionP, characterImage);
@@ -78,29 +99,17 @@ function fetchOrigin() {
 }
 fetchOrigin();
 
-async function queryName(event) {
+async function queryName(searchValue) {
 
     section.innerHTML = "";
+    console.log(searchValue)
+    if (!searchValue) {
 
-    let query = event.target.value;
-    console.info(query.length);
-    if (query.length === 0) {
-        try {
-            // const result = await fetch(link)
-            // console.log(link);
-            // let data = await result.json();
-            // console.log(data);
-
-
-            fetchOrigin();
-
-        } catch (error) {
-            throw new Error(error);
-        }
-
+        fetchOrigin();
     } else {
+        console.log("hi")
         let querySearch = "";
-        querySearch = "&name=" + query;
+        querySearch = "&name=" + searchValue;
         console.log("link", link + querySearch);
 
         try {
@@ -124,13 +133,11 @@ async function queryName(event) {
     }
 }
 
-async function queryRace(event) {
+async function queryRace(searchValue) {
 
     section.innerHTML = "";
 
-    let query = event.target.value;
-    console.info(query.length);
-    if (query.length === 0) {
+    if (!searchValue) {
         try {
             // const result = await fetch(link)
             // console.log(link);
@@ -146,7 +153,7 @@ async function queryRace(event) {
 
     } else {
         let querySearch = "";
-        querySearch = "&race=" + query;
+        querySearch = "&race=" + searchValue;
         console.log("link", link + querySearch);
 
         try {
@@ -170,13 +177,11 @@ async function queryRace(event) {
     }
 }
 
-async function queryGender(event) {
+async function queryGender(searchValue) {
 
     section.innerHTML = "";
 
-    let query = event.target.value;
-    console.info(query.length);
-    if (query.length === 0) {
+    if (!searchValue) {
         try {
             // const result = await fetch(link)
             // console.log(link);
@@ -192,7 +197,7 @@ async function queryGender(event) {
 
     } else {
         let querySearch = "";
-        querySearch = "&gender=" + query;
+        querySearch = "&gender=" + searchValue;
         console.log("link", link + querySearch);
 
         try {
@@ -222,7 +227,7 @@ async function queryGender(event) {
 
 const filters = document.getElementsByName('filter')
 filters.forEach(radio => {
-    radio.addEventListener("change", queryGeneral)
+    radio.addEventListener("change", updateFilter)
 });
 
 
