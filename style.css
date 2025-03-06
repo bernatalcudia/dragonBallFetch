@@ -34,7 +34,6 @@ input {
 
 
 #charactersDiv {
-    background-color: whitesmoke;
     border-radius: 1rem;
     display: flex;
     flex-flow: column wrap;
